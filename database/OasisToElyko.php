@@ -3,8 +3,8 @@
 /**
  * Data migration from Oasis to Elyko
  *
- * The Upload from the Oasis view provided containing only students but all this process, evaluations and marks.
- * The base of destination is Elyko, on the cagiva server. The tables are: evaluation, and evaluation_student skillsAssessed.
+ * The provided view of Oasis containing only current students but all courses, evaluations and marks.
+ * The database of destination is Elyko, on the cagiva server.
  * Key steps:
  * - Request SELECT
  * - Iteration on the result ($ row = mssql_fetch_assoc ($ result)) to store it in PHP array
