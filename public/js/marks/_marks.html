@@ -1,0 +1,47 @@
+<div layout="column" flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs flex-offset-xs="0">
+
+    <md-card>
+        <div class="semester-gpa" layout="row" layout-padding="">
+            <div layout="column" layout-align="center start" flex>
+                <span>{{semester.name}}</span>
+            </div>
+            <div layout="column" layout-align="center end" flex>
+                <span ng-hide="semester.gpa==0">GPA : {{semester.gpa}}</span>
+            </div>
+        </div>
+
+    </md-card>
+
+    <md-card ng-repeat="uv in semester.uvs | filter: filter">
+        <md-list class="table">
+            <md-list-item layout="row" class="table-header" ng-click="state.go('uv', {id: uv.id})"
+                          ng-disabled="uv.grade==' '">
+                <div layout="column" flex="70" layout-align="center start">
+                    <span class="uv-name">{{uv.name}}</span>
+                </div>
+                <div layout="column" flex="15" layout-align="center end">
+                    <span>{{uv.credits}} ECTS</span>
+                </div>
+                <div layout="column" flex="15" layout-align="center end">
+                    <span>{{uv.grade}}</span>
+                </div>
+            </md-list-item>
+
+            <md-divider></md-divider>
+
+            <md-list-item ng-repeat="eval in uv.evaluations" layout="row" class="table-row"
+                          ng-click="viewEvaluation(eval)">
+                <div layout="column" flex="70" layout-align="center start">
+                    <span class="uv-name">{{eval.name}}</span>
+                </div>
+                <div layout="column" flex="15" layout-align="center end">
+                    <span>{{eval.coefficient}}</span>
+                </div>
+                <div layout="column" flex="15" layout-align="center end">
+                    <span>{{eval.mark}}</span>
+                </div>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-card>
+</div>

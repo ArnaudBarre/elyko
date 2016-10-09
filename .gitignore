@@ -1,4 +1,5 @@
 /.idea
+/public/lib/bower_components
 /storage
 /vendor
 .env

@@ -1,0 +1,106 @@
+<div flex-gt-xs="65" flex-xs>
+    <md-card>
+
+
+        <md-card-title>Radar de compétences {{semester}}</md-card-title>
+
+        <md-card-content>
+
+            <canvas id="radar" class="chart chart-radar"
+                    chart-data="data" chart-labels="labels" chart-colours="['#4DB6AC']"
+                    chart-options="{pointLabelFontSize: 12, scaleOverride: true,
+                    scaleStartValue: 0, scaleStepWidth: 0.5, scaleSteps: 4}">
+            </canvas>
+
+        </md-card-content>
+
+
+    </md-card>
+</div>
+
+<div flex-gt-xs="45" flex-xs>
+    <md-card>
+        <md-card-content>
+            <md-table-container>
+                <table md-table>
+
+                    <thead md-head style="background-color: #B2DFDB">
+                    <tr md-row>
+                        <th md-column><span>Scientifique et technique</span></th>
+                    </tr>
+                    </thead>
+
+                    <tbody md-body>
+                    <tr md-row>
+                        <td md-cell>STA : Connaissance et savoir</td>
+                    </tr>
+                    <tr md-row>
+                        <td md-cell>STB : Mise en oeuvre des connaissances et savoir</td>
+                    </tr>
+                    <tr md-row>
+                        <td md-cell>STC : Recherche et expérimentation</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head style="background-color: #B2DFDB">
+                    <tr md-row>
+                        <th md-column><span>Ingénierie</span></th>
+                    </tr>
+                    </thead>
+
+                    <tbody md-body>
+                    <tr md-row>
+                        <td md-cell>IGA : Pratique de l'ingénierie</td>
+                    </tr>
+                    <tr md-row>
+                        <td md-cell>IGB : Projet d'ingénierie</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head style="background-color: #B2DFDB">
+                    <tr md-row>
+                        <th md-column><span>Interpersonnelle</span></th>
+                    </tr>
+                    </thead>
+
+                    <tbody md-body>
+                    <tr md-row>
+                        <td md-cell>interpA : Agir en équipe</td>
+                    </tr>
+                    <tr md-row>
+                        <td md-cell>interpB : Capacité de communication</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head style="background-color: #B2DFDB">
+                    <tr md-row>
+                        <th md-column><span>Intrapersonnelle</span></th>
+                    </tr>
+                    </thead>
+
+                    <tbody md-body>
+                    <tr md-row>
+                        <td md-cell>intraA : La personne face à elle-même</td>
+                    </tr>
+                    <tr md-row>
+                        <td md-cell>intraB : La personne face aux autres</td>
+                    </tr>
+                    <tr md-row>
+                        <td md-cell>intraC : La personne dans son evironnement</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+</div>
+

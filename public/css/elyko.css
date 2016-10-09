@@ -1,0 +1,81 @@
+.semester-gpa {
+    background-color: #B2DFDB;
+    height: 56px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.54);
+    white-space: nowrap;
+
+}
+
+.table {
+    padding: 0;
+}
+
+
+.table-header {
+    background-color: #B2DFDB;
+    height: 56px;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.54);
+    white-space: nowrap;
+}
+
+.table-row {
+    height: 56px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.md-button {
+    line-height: normal;
+}
+
+
+.uv-name {
+    white-space: normal;
+}
+
+
+.md-sidebar-image-header {
+    text-align: center;
+}
+
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    border-color: white;
+    color: white;
+}
+
+md-input-container .md-errors-spacer{
+    min-height: 0;
+}
+
+img {
+    display:inline-block;
+    margin: 0 auto;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+@media screen and (max-device-width: 375px) {
+    .table-header {
+        height: 46px;
+        font-size: 10px;
+    }
+
+    .table-row {
+        height: 46px;
+        font-size: 10px;
+    }
+
+    .semester-gpa {
+        height: 46px;
+        font-size: 12px;
+    }
+}
+
+

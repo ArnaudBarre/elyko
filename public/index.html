@@ -1,0 +1,128 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description"
+          content="Site non-officiel permettant aux étudiants de Mines Nantes de consulter leurs notes facilement">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta property="og:image" content="images/logo.png"/>
+    <meta property="og:image:secure_url" content="https://web.emn.fr/x-student/elyko/public/images/logo.png"/>
+    <title>Elyko</title>
+
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="lib/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="lib/bower_components/angular-material-data-table/dist/md-data-table.css">
+    <link rel="stylesheet" href="lib/bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="lib/bower_components/angular-material-sidenav/angular-material-sidenav.css">
+    <link rel="stylesheet" href="css/elyko.css">
+
+</head>
+<body ng-app="elyko" layout="column" ng-cloak flex ng-controller="ToolbarCtrl">
+
+<md-toolbar>
+    <div class="md-toolbar-tools">
+
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="showMenu()" hide-gt-sm>
+            <md-icon md-font-set="material-icons">
+                menu
+            </md-icon>
+        </md-button>
+
+        <span flex></span>
+
+        <md-button class="md-icon-button" aria-label="Search" ng-click="showSearchBar=!showSearchBar"
+                   ng-show="searchButtonIsVisible()">
+            <md-icon md-font-set="material-icons">
+                search
+            </md-icon>
+        </md-button>
+
+        <md-input-container ng-show="searchBarIsVisible()">
+            <label>&nbsp;</label>
+            <input type="text" ng-model="filter" placeholder="recherche...">
+        </md-input-container>
+
+        <md-button class="md-icon-button" aria-label="Logout">
+            <md-icon md-font-set="material-icons">
+                exit_to_app
+            </md-icon>
+        </md-button>
+
+    </div>
+
+</md-toolbar>
+
+<section layout="row" ng-controller="SideNavCtrl" flex>
+
+
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2"
+                md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')">
+
+        <header class="md-sidebar-image-header">
+            <img src="images/logo.png" alt="" height="200">
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">{{student.name}} {{student.last_name}}</h1>
+            </md-toolbar>
+        </header>
+
+        <md-divider></md-divider>
+
+        <md-content flex role="navigation" ss-style-color="{'background-color': 'primary.default'}">
+            <ss-sidenav menu="menu"></ss-sidenav>
+        </md-content>
+
+    </md-sidenav>
+
+
+    <md-content flex>
+        <div layout="row" layout-xs="column" layout-padding ui-view>
+
+        </div>
+    </md-content>
+
+
+</section>
+
+</body>
+
+<script src="lib/bower_components/angular/angular.js"></script>
+<script src="lib/bower_components/angular-aria/angular-aria.js"></script>
+<script src="lib/bower_components/angular-animate/angular-animate.js"></script>
+<script src="lib/bower_components/angular-material/angular-material.js"></script>
+<script src="lib/bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+<script src="lib/bower_components/Chart.js/Chart.js"></script>
+<script src="lib/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+<script src="lib/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="lib/bower_components/angular-material-sidenav/angular-material-sidenav.js"></script>
+<script src="js/app.js"></script>
+<script src="js/navigation/studentFactory.js"></script>
+<script src="js/navigation/SideNavCtrl.js"></script>
+<script src="js/navigation/ToolbarCtrl.js"></script>
+<script src="js/navigation/navigation.js"></script>
+<script src="js/marks/marksFactory.js"></script>
+<script src="js/marks/MarksCtrl.js"></script>
+<script src="js/uvs/uvFactory.js"></script>
+<script src="js/uvs/UvCtrl.js"></script>
+<script src="js/evaluations/evaluationFactory.js"></script>
+<script src="js/evaluations/EvaluationCtrl.js"></script>
+<script src="js/skills/skillsFactory.js"></script>
+<script src="js/skills/SkillsCtrl.js"></script>
+</html>

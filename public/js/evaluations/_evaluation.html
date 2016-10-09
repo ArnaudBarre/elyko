@@ -1,0 +1,22 @@
+<div layout="column" flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs flex-offset-xs="0">
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{name}}</span>
+                <div class="md-subhead">Coefficient: {{coefficient}}, <span ng-if="mark">Note: {{mark}},</span>
+                    Moyenne:{{average}}
+                </div>
+            </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+            <div flex>
+                <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels"
+                        chart-colours="['#4DB6AC']">
+
+                </canvas>
+            </div>
+        </md-card-content>
+
+    </md-card>
+</div>
