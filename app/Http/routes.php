@@ -11,6 +11,13 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$app->get('/', function () {
+    return redirect('/index.html');
 });
+
+$app->get('/student', 'StudentController@get');
+$app->get('/marks', 'SemesterController@getLast');
+$app->get('/marks/{semester_id}', 'SemesterController@get');
+$app->get('/evaluation/{id}', 'EvaluationController@get');
+$app->get('/skills/{semester_id}', 'SkillController@get');
+$app->get('/uv/{id}', 'UvController@get');

@@ -25,5 +25,8 @@ $app = require __DIR__ . '/../bootstrap/app.php';
 |
 */
 
+// For local tests, variable provide by the intern authentication of my school
+$_SERVER["PHP_AUTH_USER"] = 'abarre14';
+
 $request = Illuminate\Http\Request::capture();
 $app->run($request);
