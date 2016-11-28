@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Semester;
@@ -20,55 +19,42 @@ class SemesterController extends Controller
                 $query->where('locked', true);
                 $query->join('evaluation_student', 'evaluation_student.evaluation_id', '=', 'evaluations.id');
                 $query->where('student_id', $student_id);
+                $query->orderBy('id', 'desc');
             },
         ])->where('id', $id)->first();
         $semester['gpa'] = $this->gpa($semester);
+        $uvs = $semester->uvs->toArray();
+        usort($uvs, function ($a, $b) {
+            if ($a['evaluations'] && $b['evaluations'])
+                return $a['evaluations'][0]['id'] < $b['evaluations'][0]['id'] ? 1 : -1;
+            else
+                return $a['evaluations'] ? -1 : 1;
+        });
+        unset($semester->uvs);
+        $semester->uvs = $uvs;
         return response()->json($semester);
     }
 
     public function getLast()
     {
-        $semester_id = Student::where('login', $_SERVER['PHP_AUTH_USER'])->first()->semesters()->get()->last()->id;
-        return $this->get($semester_id);
+        $semesters = StudentController::semesters(Student::where('login', $_SERVER['PHP_AUTH_USER'])->first());
+        return $this->get(end($semesters)->id);
     }
 
     function gpa($semester)
     {
+        $values = ['A' => 4, 'B' => 3.5, 'C' => 3, 'D' => 2.5, 'E' => 2];
         $gpa = $total = $totalECTS = 0;
         foreach ($semester['uvs'] as $uv) {
             $grade = $uv['grade'];
             $credits = $uv['credits'];
             if (!is_numeric($grade))
-                $grade = $this->letterToDigit($grade);
+                $grade = array_key_exists($grade, $values) ? $values[$grade] : 0;
             $total += $grade * $credits;
             $totalECTS += $credits;
         }
         if ($totalECTS)
             $gpa = round($total / $totalECTS, 2);
         return $gpa;
-    }
-
-    function letterToDigit($grade)
-    {
-        switch ($grade) {
-            case "A" :
-                $digit = 4;
-                break;
-            case "B" :
-                $digit = 3.5;
-                break;
-            case "C" :
-                $digit = 3;
-                break;
-            case "D" :
-                $digit = 2.5;
-                break;
-            case "E" :
-                $digit = 2;
-                break;
-            default :
-                $digit = 0;
-        }
-        return $digit;
     }
 }

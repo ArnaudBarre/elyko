@@ -18,8 +18,8 @@ class StudentUv extends Migration
             $table->string('grade')->nullable();
             $table->boolean('up_to_date');
             $table->primary(['student_id','uv_id']);
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('uv_id')->references('id')->on('uvs');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('uv_id')->references('id')->on('uvs')->onDelete('cascade');
         });
     }
 

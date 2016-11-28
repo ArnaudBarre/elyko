@@ -19,8 +19,8 @@ class SkillsAssessed extends Migration
             $table->integer('semester_id')->unsigned();
             $table->string('value');
             $table->boolean('up_to_date');
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('semester_id')->references('id')->on('semesters');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
         });
     }
 

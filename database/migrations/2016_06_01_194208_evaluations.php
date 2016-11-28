@@ -19,7 +19,7 @@ class Evaluations extends Migration
             $table->double('coefficient');
             $table->boolean('locked');
             $table->boolean('up_to_date');
-            $table->foreign('uv_id')->references('id')->on('uvs');
+            $table->foreign('uv_id')->references('id')->on('uvs')->onDelete('cascade');
         });
     }
 

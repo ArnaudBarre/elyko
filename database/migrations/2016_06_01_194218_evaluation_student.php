@@ -18,8 +18,8 @@ class EvaluationStudent extends Migration
             $table->string('mark')->nullable();
             $table->boolean('up_to_date');
             $table->primary(['evaluation_id','student_id']);
-            $table->foreign('evaluation_id')->references('id')->on('evaluations');
-            $table->foreign('student_id')->references('id')->on('students');            
+            $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 

@@ -18,7 +18,7 @@ class Uvs extends Migration
             $table->integer('semester_id')->unsigned();
             $table->integer('credits');
             $table->boolean('up_to_date');
-            $table->foreign('semester_id')->references('id')->on('semesters');
+            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
         });
     }
 

@@ -17,8 +17,8 @@ class SemesterStudent extends Migration
             $table->integer('student_id')->unsigned();
             $table->boolean('up_to_date');
             $table->primary(['semester_id','student_id']);
-            $table->foreign('semester_id')->references('id')->on('semesters');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 

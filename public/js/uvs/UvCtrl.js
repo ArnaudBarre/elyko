@@ -2,11 +2,12 @@
  * Created by tim on 20/05/16.
  */
 angular.module('elyko')
-    .controller('UvCtrl', ['$scope', 'UvPromise',
-        function ($scope, UvPromise) {
+    .controller('UvCtrl', ['$scope', 'UvPromise', 'uvFactory',
+        function ($scope, UvPromise, uvFactory) {
             $scope.name = UvPromise.name;
             $scope.credits = UvPromise.credits;
             $scope.average = UvPromise.average;
+            $scope.grade = uvFactory.studentGrade;
             $scope.labels = getLabels();
             $scope.data = getData();
 

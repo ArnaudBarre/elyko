@@ -3,3 +3,4 @@
 /storage
 /vendor
 .env
+/database/credentials.php
