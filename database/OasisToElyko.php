@@ -85,16 +85,18 @@ while ($row = sqlsrv_fetch_array($result))
         }
     }
 // Select student_uv
-$request = "SELECT student.intIdUtilisateur AS 'student_id', UV.intIdProcess AS 'uv_id', computedGrade.strValeur AS 'computedGrade', forcedGrade.strGrade AS 'forcedGrade'
+$request = "SELECT student.intIdUtilisateur AS 'student_id', UV.intIdProcess AS 'uv_id', computed_grade.strValeur AS 'computed_grade', forced_grade.strGrade AS 'forced_grade', forced_credits.strValeur AS forced_credits
         FROM eleves student
         -- Inscription of student to UV
         INNER JOIN Inscription_process iUV ON iUV.intIdUser = student.intIdUtilisateur
         -- UV: process of FPC type with children (permit to not select skills)
         INNER JOIN process UV ON UV.intIdProcess = iUV.intIdProcess AND UV.strTypeReferentiel = 'FPC' AND UV.intNbFils > 0
         -- Computed grade: store in dyn_valeurs with intIdChamp = 1383 and inscription id in string format
-        LEFT OUTER JOIN dyn_valeurs computedGrade ON computedGrade.intIdChamp = 1383 AND computedGrade.intIdRef = CAST(iUV.intIdInscription AS NVARCHAR(255))
+        LEFT OUTER JOIN dyn_valeurs computed_grade ON computed_grade.intIdChamp = 1383 AND computed_grade.intIdRef = CAST(iUV.intIdInscription AS NVARCHAR(255))
         -- Forced grade (if existed): store in bdn_buletin
-        LEFT OUTER JOIN bdn_bulletin forcedGrade ON forcedGrade.intIdEleve = student.intIdUtilisateur AND forcedGrade.intIdProcess = UV.intIdProcess
+        LEFT OUTER JOIN bdn_bulletin forced_grade ON forced_grade.intIdEleve = student.intIdUtilisateur AND forced_grade.intIdProcess = UV.intIdProcess
+        -- Forced credits (for student in credit transfer) : store in dyn_valeur with intIdChamp = 1221 and inscription id in string number
+        LEFT OUTER JOIN DYN_Valeurs forced_credits ON forced_credits.intIdChamp = 1221 AND forced_credits.intidref = CAST(iUV.intIdInscription AS NVARCHAR(25))
         ORDER BY uv_id";
 $result = sqlsrv_query($connOasis, $request);
 $student_uv = [];
@@ -104,7 +106,8 @@ while ($row = sqlsrv_fetch_array($result))
     if (in_array($row['uv_id'], $uvs_ids)) {
         $student_uv[$i]['student_id'] = $row['student_id'];
         $student_uv[$i]['uv_id'] = $row['uv_id'];
-        $student_uv[$i]['grade'] = $row['forcedGrade'] ? $row['forcedGrade'] : $row['computedGrade'];
+        $student_uv[$i]['grade'] = $row['forced_grade'] ? $row['forced_grade'] : $row['computed_grade'];
+        $student_uv[$i]['forced_credits'] = $row['forced_credits'] ? $row['forced_credits'] : 0;
         $i++;
     }
 // Select evaluations
@@ -238,9 +241,10 @@ if ($queryReplace && $queryDelete) {
 $sql = [];
 foreach ($student_uv as $inscription) {
     $inscription['grade'] = str_replace(",", ".", $inscription['grade']);
-    $sql[] = '(' . $inscription['student_id'] . ', ' . $inscription['uv_id'] . ', "' . $inscription['grade'] . '", true)';
+    $inscription['forced_credits'] = str_replace(",", ".", $inscription['forced_credits']);
+    $sql[] = '(' . $inscription['student_id'] . ', ' . $inscription['uv_id'] . ', "' . $inscription['grade'] . '", ' . $inscription['forced_credits'] . ', true)';
 }
-$queryReplace = mysqli_query($connElyko, 'REPLACE INTO student_uv (student_id, uv_id, grade, up_to_date) VALUES ' . implode(',', $sql));
+$queryReplace = mysqli_query($connElyko, 'REPLACE INTO student_uv (student_id, uv_id, grade, forced_credits, up_to_date) VALUES ' . implode(',', $sql));
 $queryDelete = mysqli_query($connElyko, 'DELETE FROM student_uv WHERE up_to_date = FALSE');
 if ($queryReplace && $queryDelete) {
     mysqli_commit($connElyko);

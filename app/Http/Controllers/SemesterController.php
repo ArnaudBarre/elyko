@@ -22,7 +22,10 @@ class SemesterController extends Controller
                 $query->orderBy('id', 'desc');
             },
         ])->where('id', $id)->first();
-        $semester['gpa'] = $this->gpa($semester);
+        $semester->uvs->transform(function($uv) {
+            $uv['credits'] = $uv['forced_credits'] ? $uv['forced_credits'] : $uv['credits'];
+            return $uv;
+        });
         $uvs = $semester->uvs->toArray();
         usort($uvs, function ($a, $b) {
             if ($a['evaluations'] && $b['evaluations'])
@@ -32,6 +35,7 @@ class SemesterController extends Controller
         });
         unset($semester->uvs);
         $semester->uvs = $uvs;
+        $semester['gpa'] = $this->gpa($semester);
         return response()->json($semester);
     }
 

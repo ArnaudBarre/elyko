@@ -16,6 +16,7 @@ class StudentUv extends Migration
             $table->integer('student_id')->unsigned();
             $table->integer('uv_id')->unsigned();
             $table->string('grade')->nullable();
+            $table->float('forced_credits')->nullable();
             $table->boolean('up_to_date');
             $table->primary(['student_id','uv_id']);
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
