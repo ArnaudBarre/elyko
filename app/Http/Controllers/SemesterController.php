@@ -23,7 +23,7 @@ class SemesterController extends Controller
             },
         ])->where('id', $id)->first();
         $semester->uvs->transform(function($uv) {
-            $uv['credits'] = $uv['forced_credits'] ? $uv['forced_credits'] : $uv['credits'];
+            $uv['credits'] = $uv['forced_credits']>0 ? $uv['forced_credits'] : $uv['credits'];
             return $uv;
         });
         $uvs = $semester->uvs->toArray();

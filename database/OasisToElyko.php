@@ -85,7 +85,7 @@ while ($row = sqlsrv_fetch_array($result))
         }
     }
 // Select student_uv
-$request = "SELECT student.intIdUtilisateur AS 'student_id', UV.intIdProcess AS 'uv_id', computed_grade.strValeur AS 'computed_grade', forced_grade.strGrade AS 'forced_grade', forced_credits.strValeur AS forced_credits
+$request = "SELECT student.intIdUtilisateur AS 'student_id', UV.intIdProcess AS 'uv_id', computed_grade.strValeur AS 'computed_grade', forced_grade.strGrade AS 'forced_grade', forced_credits.strValeur AS 'forced_credits'
         FROM eleves student
         -- Inscription of student to UV
         INNER JOIN Inscription_process iUV ON iUV.intIdUser = student.intIdUtilisateur
@@ -106,8 +106,8 @@ while ($row = sqlsrv_fetch_array($result))
     if (in_array($row['uv_id'], $uvs_ids)) {
         $student_uv[$i]['student_id'] = $row['student_id'];
         $student_uv[$i]['uv_id'] = $row['uv_id'];
-        $student_uv[$i]['grade'] = $row['forced_grade'] ? $row['forced_grade'] : $row['computed_grade'];
-        $student_uv[$i]['forced_credits'] = $row['forced_credits'] ? $row['forced_credits'] : 0;
+        $student_uv[$i]['grade'] = ($row['forced_grade'] && $row['forced_grade'] != ' ') ? $row['forced_grade'] : $row['computed_grade'];
+        $student_uv[$i]['forced_credits'] = ($row['forced_credits'] && $row['forced_credits']!=' ')? $row['forced_credits'] : 0;
         $i++;
     }
 // Select evaluations
